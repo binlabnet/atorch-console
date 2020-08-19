@@ -1,3 +1,6 @@
 {
-  "trailingComma": "all"
+  "quoteProps": "consistent",
+  "trailingComma": "all",
+  "singleQuote": true,
+  "jsxSingleQuote": true
 }

@@ -51,15 +51,15 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 |   `04` | Voltage      | 3 byte     | 24 bit BE                           |
 |   `07` | Amp          | 3 byte     | 24 bit BE                           |
 |   `0A` | Watt         | 3 byte     | 24 bit BE                           |
-|   `0D` | kW·h         | 4 byte     | 32 bit BE                           |
+|   `0D` | W·h          | 4 byte     | 32 bit BE                           |
 |   `11` | Price        | 3 byte     | 24 bit BE                           |
 |   `14` | Frequency    | 2 byte     | 16 bit BE                           |
 |   `16` | Power factor | 2 byte     | 16 bit BE                           |
-|   `18` | Tempoerature | 3 byte     | 24 bit BE                           |
-|   `1A` | Hour         | 1 byte     |                                     |
-|   `1B` | Minute       | 1 byte     |                                     |
-|   `1C` | Second       | 1 byte     |                                     |
-|   `1D` | End byte     | 1 byte     | `3C`                                |
+|   `18` | Temperature  | 2 byte     | 16 bit BE                           |
+|   `1A` | Hour         | 2 byte     | 16 bit BE                           |
+|   `1C` | Minute       | 1 byte     |                                     |
+|   `1D` | Second       | 1 byte     |                                     |
+|   `1E` | Backlight    | 1 byte     |                                     |
 
 ### DC Meter Report
 
@@ -67,28 +67,38 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 | Offset | Field       | Block size | Note                                |
 | -----: | ----------- | ---------- | ----------------------------------- |
-|   `03` | Device Type | 1 byte     | `02` [Device Type](#type-indicator) |
+|   `03` | Device Type | 1 byte     | `01` [Device Type](#type-indicator) |
+|   `04` | Voltage     | 3 byte     | 24 bit BE                           |
+|   `07` | Amp         | 3 byte     | 24 bit BE                           |
+|   `0A` | A·h         | 3 byte     | 24 bit BE                           |
+|   `0D` | W·h         | 4 byte     | 32 bit BE                           |
+|   `11` | Price       | 3 byte     | 24 bit BE                           |
+|   `14` |             | 4 byte     | unknown value                       |
+|   `18` | Temperature | 2 byte     | 16 bit BE                           |
+|   `1A` | Hour        | 2 byte     | 16 bit BE                           |
+|   `1C` | Minute      | 1 byte     |                                     |
+|   `1D` | Second      | 1 byte     |                                     |
+|   `1E` | Backlight   | 1 byte     |                                     |
 
 ### USB Meter Report
 
 > Sample Packet:
 > [packet-meter-usb.spec.ts](../src/service/atorch-packet/packet-meter-usb.spec.ts)
 
-| Offset | Field        | Block size | Note                                |
-| -----: | ------------ | ---------- | ----------------------------------- |
-|   `03` | Device Type  | 1 byte     | `03` [Device Type](#type-indicator) |
-|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
-|   `07` | Amp          | 3 byte     | 24 bit BE                           |
-|   `0A` | mA·h         | 3 byte     | 24 bit BE                           |
-|   `0D` | W·h          | 4 byte     | 32 bit BE                           |
-|   `11` | USB D-       | 2 byte     | 16 bit BE                           |
-|   `13` | USB D+       | 2 byte     | 16 bit BE                           |
-|   `15` | Tempoerature | 3 byte     | 24 bit BE                           |
-|   `17` |              | 1 byte     | unknown value                       |
-|   `18` | Hour         | 1 byte     |                                     |
-|   `19` | Minute       | 1 byte     |                                     |
-|   `20` | Second       | 1 byte     |                                     |
-|   `2A` | End byte     | 1 byte     | `3C`                                |
+| Offset | Field       | Block size | Note                                |
+| -----: | ----------- | ---------- | ----------------------------------- |
+|   `03` | Device Type | 1 byte     | `03` [Device Type](#type-indicator) |
+|   `04` | Voltage     | 3 byte     | 24 bit BE                           |
+|   `07` | Amp         | 3 byte     | 24 bit BE                           |
+|   `0A` | mA·h        | 3 byte     | 24 bit BE                           |
+|   `0D` | W·h         | 4 byte     | 32 bit BE                           |
+|   `11` | USB D-      | 2 byte     | 16 bit BE                           |
+|   `13` | USB D+      | 2 byte     | 16 bit BE                           |
+|   `15` | Temperature | 3 byte     | 24 bit BE                           |
+|   `17` | Hour        | 2 byte     | 16 bit BE                           |
+|   `19` | Minute      | 1 byte     |                                     |
+|   `1A` | Second      | 1 byte     |                                     |
+|   `1B` | Backlight   | 1 byte     |                                     |
 
 ### Command
 
@@ -99,17 +109,22 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | -----: | ----------- | ---------- | ------------------------------ |
 |   `03` | Device Type | 1 byte     | [Device Type](#type-indicator) |
 |   `04` | Command     | 1 byte     |                                |
+|   `05` | Value       | 4 byte     | 32 bit BE                      |
 
-| Device Type | Command | Action         |
-| ----------: | ------: | -------------- |
-|   USB Meter |    `01` | Reset W·h      |
-|   USB Meter |    `02` | Reset A·h      |
-|   USB Meter |    `03` | Reset Duration |
-|             |    `05` | Reset All      |
-|             |    `31` | Setup          |
-|             |    `32` | Enter          |
-|             |    `33` | `[+]` Command  |
-|             |    `34` | `[-]` Command  |
+| Command | Value       | Action                    |
+| ------: | ----------- | ------------------------- |
+|    `01` |             | Reset W·h                 |
+|    `02` |             | Reset A·h                 |
+|    `03` |             | Reset Duration            |
+|    `05` |             | Reset All                 |
+|    `21` | 0 to 60     | Set Backlight Time        |
+|    `22` | 1 to 999999 | Set Price                 |
+|    `31` |             | Setup                     |
+|    `32` |             | Enter                     |
+|    `11` |             | `[+]` Command             |
+|    `33` |             | `[+]` Command (USB meter) |
+|    `12` |             | `[-]` Command             |
+|    `34` |             | `[-]` Command (USB meter) |
 
 ### Reply
 
@@ -130,7 +145,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > Without **Magic Header**
 
 ```javascript
-const packet = Buffer.from("FF551103310000000001", "hex");
+const packet = Buffer.from('FF551103310000000001', 'hex');
 
 const payload = packet.slice(2, -1);
 // "11033100000000" (hex string)

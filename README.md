@@ -1,8 +1,10 @@
 # Atorch Console
 
+![Publish](https://github.com/NiceLabs/atorch-console/workflows/Publish/badge.svg)
+
 > The console based Web Bluetooth.
 >
-> Note: Atorch Chinese is "炬为" (Pinyin: Jù wèi)
+> Note: Atorch Chinese name is "炬为" (Pinyin: Jù wèi)
 
 ## Supported Meter
 
@@ -12,8 +14,8 @@
 | --------: | ------------------------------------------- | ------------ | ------------- |
 |  AC Meter | Atorch AT24                                 | E_test       | TESTED        |
 |  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) | E_test       |               |
-|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     | E_test       | UNSUPPPORTED  |
-|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) | E_test       | UNSUPPPORTED  |
+|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     | E_test       | UNTESTED      |
+|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) | E_test       | UNTESTED      |
 | USB Meter | [Atorch UD18](docs/UserManual/UD18.jpg)     | E_test       | TESTED        |
 | USB Meter | [Atorch UD18-L](docs/UserManual/UD18-L.jpg) | E_test       |               |
 | USB Meter | [Atorch T18](docs/UserManual/T18.jpg)       | E_test       |               |

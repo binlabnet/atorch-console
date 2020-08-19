@@ -1,5 +1,5 @@
-import { MessageType } from "./types";
-import { makeChecksum } from "./utils";
+import { MessageType } from './types';
+import { makeChecksum } from './utils';
 
 export const HEADER = Buffer.of(0xff, 0x55);
 
@@ -10,14 +10,14 @@ const packetSize: Record<MessageType, number> = {
 };
 
 export function assertPacket(
-  block: Buffer,
+  block: Buffer | null,
   type: MessageType,
 ): asserts block is Buffer {
   const length = packetSize[type];
   if (!Buffer.isBuffer(block)) {
-    throw new Error("block not is Buffer object");
+    throw new Error('block not is Buffer object');
   } else if (block.indexOf(HEADER) !== 0) {
-    throw new Error("magic header not found");
+    throw new Error('magic header not found');
   } else if (block.readInt8(0x02) !== type) {
     throw new Error(`message type unexpected (expected: ${type})`);
   } else if (block.length !== length) {

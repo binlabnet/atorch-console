@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Button, Row, Container } from "reactstrap";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button, Row, Container } from 'reactstrap';
 
-import locals from "./index.scss";
+import locals from './index.scss';
 
-import { useWatchReport, useConnected } from "../../hooks/atorch";
-import { requestDevice, connect, disconnect } from "../../actions/atorch";
-import { MeterPacketType } from "../../service/atorch-packet";
-import { PrintReport } from "./PrintReport";
+import { useWatchReport, useConnected } from '../../hooks/atorch';
+import { requestDevice, connect, disconnect } from '../../actions/atorch';
+import { MeterPacketType } from '../../service/atorch-packet';
+import { PrintReport } from './PrintReport';
 
 export const AtorchConsole: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ export const AtorchConsole: React.FC = () => {
   };
   return (
     <Container className={locals.container}>
-      <Row className="ml-2 justify-content-center">
+      <Row className='ml-2 justify-content-center'>
         <Button outline onClick={handleConnectDevice}>
-          {connected ? "Disconnect" : "Connect"}
+          {connected ? 'Disconnect' : 'Connect'}
         </Button>
       </Row>
       <PrintReport packet={packet} />

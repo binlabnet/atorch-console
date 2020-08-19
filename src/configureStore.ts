@@ -1,20 +1,28 @@
-import { createStore, compose, applyMiddleware, AnyAction } from "redux";
-import thunk, { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
-import { createMemoryHistory } from "history";
-import { routerMiddleware } from "connected-react-router";
+import { createStore, compose, applyMiddleware, AnyAction } from 'redux';
+import thunk, { ThunkDispatch, ThunkMiddleware } from 'redux-thunk';
+import { createMemoryHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 
-import { createRootReducer, RootState } from "./reducers";
+import { createRootReducer, RootState } from './reducers';
 
 export const history = createMemoryHistory();
 
-declare module "react-redux" {
-  function useDispatch(): ThunkDispatch<RootState, never, AnyAction>;
+declare module 'react-redux' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultRootState extends RootState {}
+
+  function useDispatch(): ThunkDispatch<RootState, unknown, AnyAction>;
+}
+
+declare module 'typescript-fsa-redux-thunk' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultRootState extends RootState {}
 }
 
 const composeEnhancers: typeof compose =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === 'production'
     ? compose
-    : (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?? compose;
+    : Reflect.get(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__') ?? compose;
 
 export const configureStore = () =>
   createStore(

@@ -1,6 +1,6 @@
-import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { requestDevice } from "../actions/atorch";
-import { AtorchService } from "../service/atorch-service";
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
+import { requestDevice } from '../actions/atorch';
+import { AtorchService } from '../service/atorch-service';
 
 export type AtorchState = AtorchService | null;
 

@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../reducers";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   isMeterPacket,
   MeterPacketType,
   PacketType,
-} from "../service/atorch-packet";
+} from '../service/atorch-packet';
 
-export const useAtorchService = () =>
-  useSelector((state: RootState) => state.atorch);
+export const useAtorchService = () => useSelector((state) => state.atorch);
 
 export const useConnected = () => {
   const [connected, setConnected] = useState(false);
   const service = useAtorchService();
-  useEffect(() => service?.on("state", setConnected), [service]);
+  useEffect(() => service?.on('connected', setConnected), [service]);
   return connected;
 };
 
@@ -24,5 +22,5 @@ export const useWatchReport = (onReport: (packet: MeterPacketType) => void) => {
       onReport(packet);
     }
   };
-  useEffect(() => service?.on("packet", listner), [service]);
+  useEffect(() => service?.on('packet', listner), [service]);
 };

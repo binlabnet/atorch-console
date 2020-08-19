@@ -1,5 +1,5 @@
-import { MessageType, ReplyType } from "./types";
-import { assertPacket } from "./asserts";
+import { assertPacket } from './asserts';
+import { MessageType, ReplyType } from './types';
 
 export class ReplyPacket {
   public data: Buffer;
@@ -11,13 +11,10 @@ export class ReplyPacket {
     Object.seal(this);
   }
 
-  public toType(): ReplyType | undefined {
-    const blocks = Object.values(ReplyType) as ReplyType[];
-    for (const block of blocks) {
-      if (!Buffer.from(block, "hex").equals(this.data)) {
-        continue;
-      }
-      return block;
+  public toType() {
+    const type = this.data.toString('hex') as ReplyType;
+    if (Object.values(ReplyType).includes(type)) {
+      return type;
     }
     return;
   }
