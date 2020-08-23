@@ -7,10 +7,10 @@ import { sendCommand } from '../../../actions/atorch';
 import {
   ACMeterPacket,
   CommandSet,
+  DCMeterPacket,
   MeterPacketType,
   USBMeterPacket,
 } from '../../../service/atorch-packet';
-import { DCMeterPacket } from '../../../service/atorch-packet/packet-meter-dc';
 import locals from './index.scss';
 import { Report } from './Report';
 import { Toolbar } from './Toolbar';
