@@ -29,7 +29,6 @@
 1. "E_test" app official link
    <br><https://apps.apple.com/app/e-test/id1478623332>
    <br><https://play.google.com/store/apps/details?id=com.tang.etest.e_test>
-
 2. need more test report.
 
 ## Recommended Hardware
