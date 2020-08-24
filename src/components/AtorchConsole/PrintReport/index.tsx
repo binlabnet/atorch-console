@@ -165,9 +165,9 @@ const Command: React.FC<{
 
 const SetupPriceCommand: React.FC<{ type: number }> = ({ type }) => {
   const onClick = () => {
-    const price = prompt('Setup Price (0 to 9999.99)', 0, 0, 10000);
+    const price = prompt('Setup Price (0 to 999.99)', 0, 0, 1000);
     if (price === undefined) {
-      alert(`input unexpected (0 to 9999.99)`);
+      alert(`input unexpected (0 to 999.99)`);
       return;
     }
     return CommandSet.setPrice(type, _.toFinite(price * 100));

@@ -48,13 +48,13 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Offset | Field        | Block size | Note                                |
 | -----: | ------------ | ---------- | ----------------------------------- |
 |   `03` | Device Type  | 1 byte     | `01` [Device Type](#type-indicator) |
-|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
-|   `07` | Amp          | 3 byte     | 24 bit BE                           |
-|   `0A` | Watt         | 3 byte     | 24 bit BE                           |
-|   `0D` | W·h          | 4 byte     | 32 bit BE                           |
-|   `11` | Price        | 3 byte     | 24 bit BE                           |
-|   `14` | Frequency    | 2 byte     | 16 bit BE                           |
-|   `16` | Power factor | 2 byte     | 16 bit BE                           |
+|   `04` | Voltage      | 3 byte     | 24 bit BE (divide by 10)            |
+|   `07` | Amp          | 3 byte     | 24 bit BE (divide by 1000)          |
+|   `0A` | Watt         | 3 byte     | 24 bit BE (divide by 10)            |
+|   `0D` | W·h          | 4 byte     | 32 bit BE (divide by 100)           |
+|   `11` | Price        | 3 byte     | 24 bit BE (divide by 100)           |
+|   `14` | Frequency    | 2 byte     | 16 bit BE (divide by 10)            |
+|   `16` | Power factor | 2 byte     | 16 bit BE (divide by 1000)          |
 |   `18` | Temperature  | 2 byte     | 16 bit BE                           |
 |   `1A` | Hour         | 2 byte     | 16 bit BE                           |
 |   `1C` | Minute       | 1 byte     |                                     |
@@ -68,11 +68,11 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Offset | Field       | Block size | Note                                |
 | -----: | ----------- | ---------- | ----------------------------------- |
 |   `03` | Device Type | 1 byte     | `01` [Device Type](#type-indicator) |
-|   `04` | Voltage     | 3 byte     | 24 bit BE                           |
-|   `07` | Amp         | 3 byte     | 24 bit BE                           |
-|   `0A` | A·h         | 3 byte     | 24 bit BE                           |
-|   `0D` | W·h         | 4 byte     | 32 bit BE                           |
-|   `11` | Price       | 3 byte     | 24 bit BE                           |
+|   `04` | Voltage     | 3 byte     | 24 bit BE (divide by 10)            |
+|   `07` | Amp         | 3 byte     | 24 bit BE (divide by 1000)          |
+|   `0A` | Watt        | 3 byte     | 24 bit BE (divide by 10)            |
+|   `0D` | W·h         | 4 byte     | 32 bit BE (divide by 100)           |
+|   `11` | Price       | 3 byte     | 24 bit BE (divide by 100)           |
 |   `14` |             | 4 byte     | unknown value                       |
 |   `18` | Temperature | 2 byte     | 16 bit BE                           |
 |   `1A` | Hour        | 2 byte     | 16 bit BE                           |
@@ -88,12 +88,12 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Offset | Field       | Block size | Note                                |
 | -----: | ----------- | ---------- | ----------------------------------- |
 |   `03` | Device Type | 1 byte     | `03` [Device Type](#type-indicator) |
-|   `04` | Voltage     | 3 byte     | 24 bit BE                           |
-|   `07` | Amp         | 3 byte     | 24 bit BE                           |
-|   `0A` | mA·h        | 3 byte     | 24 bit BE                           |
-|   `0D` | W·h         | 4 byte     | 32 bit BE                           |
-|   `11` | USB D-      | 2 byte     | 16 bit BE                           |
-|   `13` | USB D+      | 2 byte     | 16 bit BE                           |
+|   `04` | Voltage     | 3 byte     | 24 bit BE (divide by 100)           |
+|   `07` | Amp         | 3 byte     | 24 bit BE (divide by 100)           |
+|   `0A` | A·h         | 3 byte     | 24 bit BE (divide by 1000)          |
+|   `0D` | W·h         | 4 byte     | 32 bit BE (divide by 100)           |
+|   `11` | USB D-      | 2 byte     | 16 bit BE (divide by 100)           |
+|   `13` | USB D+      | 2 byte     | 16 bit BE (divide by 100)           |
 |   `15` | Temperature | 3 byte     | 24 bit BE                           |
 |   `17` | Hour        | 2 byte     | 16 bit BE                           |
 |   `19` | Minute      | 1 byte     |                                     |
