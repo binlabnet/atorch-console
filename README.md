@@ -13,9 +13,9 @@
 |      Type | Product Name                                | Official app | Compatibility |
 | --------: | ------------------------------------------- | ------------ | ------------- |
 |  AC Meter | Atorch AT24                                 | E_test       | TESTED        |
-|  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) | E_test       |               |
-|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     | E_test       | UNTESTED      |
-|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) | E_test       | UNTESTED      |
+|  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) | E_test       | TESTED        |
+|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     | E_test       | TESTED        |
+|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) | E_test       | TESTED        |
 | USB Meter | [Atorch UD18](docs/UserManual/UD18.jpg)     | E_test       | TESTED        |
 | USB Meter | [Atorch UD18-L](docs/UserManual/UD18-L.jpg) | E_test       |               |
 | USB Meter | [Atorch T18](docs/UserManual/T18.jpg)       | E_test       |               |
@@ -29,6 +29,8 @@
 1. "E_test" app official link
    <br><https://apps.apple.com/app/e-test/id1478623332>
    <br><https://play.google.com/store/apps/details?id=com.tang.etest.e_test>
+
+2. need more test report.
 
 ## Recommended Hardware
 
