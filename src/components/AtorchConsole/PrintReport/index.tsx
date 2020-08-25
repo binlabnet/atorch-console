@@ -45,8 +45,12 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
           Reset
         </Command>,
       ],
-      [CO2Name, <FormattedUnit value={packet.co2} unit='g' />],
-      ['Price', packet.price.toFixed(2), <SetupPriceCommand type={type} />],
+      [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
+      [
+        'Price',
+        `${packet.price.toFixed(2)} $/kW·h`,
+        <SetupPriceCommand type={type} />,
+      ],
       ['Fee', packet.fee.toFixed(5)],
       ['Frequency', `${packet.frequency.toFixed(1)} Hz`],
       ['PF', packet.pf.toFixed(2)],
@@ -74,8 +78,12 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
           Reset
         </Command>,
       ],
-      [CO2Name, <FormattedUnit value={packet.co2} unit='g' />],
-      ['Price', packet.price.toFixed(2), <SetupPriceCommand type={type} />],
+      [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
+      [
+        'Price',
+        `${packet.price.toFixed(2)} $/kW·h`,
+        <SetupPriceCommand type={type} />,
+      ],
       ['Fee', packet.fee.toFixed(5)],
       ['Temperature', <FormattedTemperature value={packet.temperature} />],
       ['Duration', packet.duration],
@@ -111,7 +119,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
           Reset
         </Command>,
       ],
-      [CO2Name, <FormattedUnit value={packet.co2} unit='g' />],
+      [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
       ['USB D-', <FormattedUnit value={packet.dataN} unit='V' />],
       ['USB D+', <FormattedUnit value={packet.dataP} unit='V' />],
       ['Temperature', <FormattedTemperature value={packet.temperature} />],
@@ -202,6 +210,10 @@ const FormattedBacklightTime: React.FC<{ time: number }> = ({ time }) => {
     return <span>{time} sec</span>;
   }
 };
+
+function getCO2(wh: number) {
+  return wh * 0.997;
+}
 
 function prompt(
   message: string,

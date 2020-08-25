@@ -45,40 +45,40 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > Sample Packet:
 > [packet-meter-ac.spec.ts](../src/service/atorch-packet/packet-meter-ac.spec.ts)
 
-| Offset | Field        | Block size | Note                                |
-| -----: | ------------ | ---------- | ----------------------------------- |
-|   `03` | Device Type  | 1 byte     | `01` [Device Type](#type-indicator) |
-|   `04` | Voltage      | 3 byte     | 24 bit BE (divide by 10)            |
-|   `07` | Amp          | 3 byte     | 24 bit BE (divide by 1000)          |
-|   `0A` | Watt         | 3 byte     | 24 bit BE (divide by 10)            |
-|   `0D` | W·h          | 4 byte     | 32 bit BE (divide by 100)           |
-|   `11` | Price        | 3 byte     | 24 bit BE (divide by 100)           |
-|   `14` | Frequency    | 2 byte     | 16 bit BE (divide by 10)            |
-|   `16` | Power factor | 2 byte     | 16 bit BE (divide by 1000)          |
-|   `18` | Temperature  | 2 byte     | 16 bit BE                           |
-|   `1A` | Hour         | 2 byte     | 16 bit BE                           |
-|   `1C` | Minute       | 1 byte     |                                     |
-|   `1D` | Second       | 1 byte     |                                     |
-|   `1E` | Backlight    | 1 byte     |                                     |
+| Offset | Field            | Block size | Note                                |
+| -----: | ---------------- | ---------- | ----------------------------------- |
+|   `03` | Device Type      | 1 byte     | `01` [Device Type](#type-indicator) |
+|   `04` | Voltage          | 3 byte     | 24 bit BE (divide by 10)            |
+|   `07` | Amp              | 3 byte     | 24 bit BE (divide by 1000)          |
+|   `0A` | Watt             | 3 byte     | 24 bit BE (divide by 10)            |
+|   `0D` | W·h              | 4 byte     | 32 bit BE (divide by 100)           |
+|   `11` | Price (per kW·h) | 3 byte     | 24 bit BE (divide by 100)           |
+|   `14` | Frequency        | 2 byte     | 16 bit BE (divide by 10)            |
+|   `16` | Power factor     | 2 byte     | 16 bit BE (divide by 1000)          |
+|   `18` | Temperature      | 2 byte     | 16 bit BE                           |
+|   `1A` | Hour             | 2 byte     | 16 bit BE                           |
+|   `1C` | Minute           | 1 byte     |                                     |
+|   `1D` | Second           | 1 byte     |                                     |
+|   `1E` | Backlight        | 1 byte     |                                     |
 
 ### DC Meter Report
 
 > There are currently no unpurchased product tests
 
-| Offset | Field       | Block size | Note                                |
-| -----: | ----------- | ---------- | ----------------------------------- |
-|   `03` | Device Type | 1 byte     | `01` [Device Type](#type-indicator) |
-|   `04` | Voltage     | 3 byte     | 24 bit BE (divide by 10)            |
-|   `07` | Amp         | 3 byte     | 24 bit BE (divide by 1000)          |
-|   `0A` | Watt        | 3 byte     | 24 bit BE (divide by 10)            |
-|   `0D` | W·h         | 4 byte     | 32 bit BE (divide by 100)           |
-|   `11` | Price       | 3 byte     | 24 bit BE (divide by 100)           |
-|   `14` |             | 4 byte     | unknown value                       |
-|   `18` | Temperature | 2 byte     | 16 bit BE                           |
-|   `1A` | Hour        | 2 byte     | 16 bit BE                           |
-|   `1C` | Minute      | 1 byte     |                                     |
-|   `1D` | Second      | 1 byte     |                                     |
-|   `1E` | Backlight   | 1 byte     |                                     |
+| Offset | Field            | Block size | Note                                |
+| -----: | ---------------- | ---------- | ----------------------------------- |
+|   `03` | Device Type      | 1 byte     | `01` [Device Type](#type-indicator) |
+|   `04` | Voltage          | 3 byte     | 24 bit BE (divide by 10)            |
+|   `07` | Amp              | 3 byte     | 24 bit BE (divide by 1000)          |
+|   `0A` | Watt             | 3 byte     | 24 bit BE (divide by 10)            |
+|   `0D` | W·h              | 4 byte     | 32 bit BE (divide by 100)           |
+|   `11` | Price (per kW·h) | 3 byte     | 24 bit BE (divide by 100)           |
+|   `14` |                  | 4 byte     | unknown value                       |
+|   `18` | Temperature      | 2 byte     | 16 bit BE                           |
+|   `1A` | Hour             | 2 byte     | 16 bit BE                           |
+|   `1C` | Minute           | 1 byte     |                                     |
+|   `1D` | Second           | 1 byte     |                                     |
+|   `1E` | Backlight        | 1 byte     |                                     |
 
 ### USB Meter Report
 

@@ -13,7 +13,6 @@ export class ACMeterPacket {
   public readonly mWatt: number;
   public readonly mWh: number;
   public readonly price: number;
-  public readonly co2: number;
   public readonly fee: number;
   public readonly frequency: number;
   public readonly pf: number;
@@ -28,7 +27,6 @@ export class ACMeterPacket {
     this.mAmpere = readUInt24BE(block, 0x07);
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
     this.mWh = block.readUInt32BE(0x0d) * 10000;
-    this.co2 = Math.round(this.mWh * co2Factor);
     this.price = readUInt24BE(block, 0x11) / 100;
     this.fee = (this.mWh * this.price) / 1000;
     this.frequency = block.readUInt16BE(0x14) / 10;
