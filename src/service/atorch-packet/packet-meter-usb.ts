@@ -1,5 +1,4 @@
 import { assertMeterPacket, assertPacket } from './asserts';
-import { PER_MILI_WATT_HOUR_CO2 } from './constants';
 import { MessageType } from './types';
 import { readDuration, readUInt24BE } from './utils';
 
@@ -19,7 +18,7 @@ export class USBMeterPacket {
   public readonly duration: string;
   public readonly backlightTime: number;
 
-  public constructor(block: Buffer, co2Factor = PER_MILI_WATT_HOUR_CO2) {
+  public constructor(block: Buffer) {
     assertPacket(block, MessageType.Report);
     assertMeterPacket(block, type, 'USB Meter');
     this.mVoltage = readUInt24BE(block, 0x04) * 10;
