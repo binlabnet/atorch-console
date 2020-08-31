@@ -117,13 +117,13 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 |    `02` |             | Reset A·h                 |
 |    `03` |             | Reset Duration            |
 |    `05` |             | Reset All                 |
+|    `11` |             | `[+]` Command             |
+|    `12` |             | `[-]` Command             |
 |    `21` | 0 to 60     | Set Backlight Time        |
 |    `22` | 1 to 999999 | Set Price                 |
 |    `31` |             | Setup                     |
 |    `32` |             | Enter                     |
-|    `11` |             | `[+]` Command             |
 |    `33` |             | `[+]` Command (USB meter) |
-|    `12` |             | `[-]` Command             |
 |    `34` |             | `[-]` Command (USB meter) |
 
 ### Reply
