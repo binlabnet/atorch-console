@@ -32,10 +32,10 @@ export default {
     return makeCommandPacket(type, 0x22, _.clamp(price, 1, 999999));
   },
   setPlus(type: number) {
-    return makeCommandPacket(type, type !== 3 ? 0x33 : 0x11);
+    return makeCommandPacket(type, type !== 3 ? 0x11 : 0x33);
   },
   setMinus(type: number) {
-    return makeCommandPacket(type, type !== 3 ? 0x34 : 0x12);
+    return makeCommandPacket(type, type !== 3 ? 0x12 : 0x34);
   },
   setup(type: number) {
     return makeCommandPacket(type, 0x31);
