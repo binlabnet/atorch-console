@@ -46,7 +46,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
         `${packet.price.toFixed(2)} $/kW·h`,
         <SetupPriceCommand type={type} value={packet.price} />,
       ],
-      ['Fee', packet.fee.toFixed(5)],
+      ['Fee', `${packet.fee.toFixed(5)} $`],
       ['Frequency', `${packet.frequency.toFixed(1)} Hz`],
       ['PF', packet.pf.toFixed(2)],
       ['Temperature', <FormattedTemperature value={packet.temperature} />],
@@ -74,7 +74,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
         `${packet.price.toFixed(2)} $/kW·h`,
         <SetupPriceCommand type={type} value={packet.price} />,
       ],
-      ['Fee', packet.fee.toFixed(5)],
+      ['Fee', `${packet.fee.toFixed(5)} $`],
       ['Temperature', <FormattedTemperature value={packet.temperature} />],
       ['Duration', packet.duration],
       [

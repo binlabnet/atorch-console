@@ -27,7 +27,7 @@ describe('AC Meter', () => {
       mWatt: 0,
       mWh: 5100000,
       price: 1,
-      fee: 5100,
+      fee: 5.1,
       frequency: 50,
       pf: 0,
       temperature: 47,

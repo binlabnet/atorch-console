@@ -25,7 +25,7 @@ export class DCMeterPacket {
     this.mWh = block.readUInt32BE(0x0a) * 10;
     this.mWatt = Math.round((this.mVoltage * this.mAmpere) / 1000);
     this.price = readUInt24BE(block, 0x11) / 100;
-    this.fee = (this.mWh * this.price) / 1000000;
+    this.fee = this.mWh * (this.price / 1000000);
     this.temperature = block.readUInt16BE(0x18);
     this.duration = readDuration(block, 0x1a);
     this.backlightTime = block[0x1e];
