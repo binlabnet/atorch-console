@@ -27,7 +27,7 @@ export class ACMeterPacket {
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
     this.mWh = block.readUInt32BE(0x0d) * 10000;
     this.price = readUInt24BE(block, 0x11) / 100;
-    this.fee = (this.mWh * this.price) / 1000;
+    this.fee = this.mWh * (this.price / 1000000);
     this.frequency = block.readUInt16BE(0x14) / 10;
     this.pf = block.readUInt16BE(0x16) / 1000;
     this.temperature = block.readUInt16BE(0x18);

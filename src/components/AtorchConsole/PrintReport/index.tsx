@@ -38,18 +38,13 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'W·h',
         <FormattedUnit value={packet.mWh} unit='W·h' />,
-        <Command
-          hidden={packet.mWh === 0}
-          onClick={CommandSet.resetWh.bind(null, type)}
-        >
-          Reset
-        </Command>,
+        <Command onClick={CommandSet.resetWh.bind(null, type)}>Reset</Command>,
       ],
       [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
       [
         'Price',
         `${packet.price.toFixed(2)} $/kW·h`,
-        <SetupPriceCommand type={type} />,
+        <SetupPriceCommand type={type} value={packet.price} />,
       ],
       ['Fee', packet.fee.toFixed(5)],
       ['Frequency', `${packet.frequency.toFixed(1)} Hz`],
@@ -59,7 +54,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'Backlight Time',
         <FormattedBacklightTime time={packet.backlightTime} />,
-        <SetupBacklightTimeCommand type={type} />,
+        <SetupBacklightTimeCommand type={type} value={packet.backlightTime} />,
       ],
     ];
   } else if (packet instanceof DCMeterPacket) {
@@ -71,18 +66,13 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'W·h',
         <FormattedUnit value={packet.mWh} unit='W·h' />,
-        <Command
-          hidden={packet.mWh === 0}
-          onClick={CommandSet.resetWh.bind(null, type)}
-        >
-          Reset
-        </Command>,
+        <Command onClick={CommandSet.resetWh.bind(null, type)}>Reset</Command>,
       ],
       [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
       [
         'Price',
         `${packet.price.toFixed(2)} $/kW·h`,
-        <SetupPriceCommand type={type} />,
+        <SetupPriceCommand type={type} value={packet.price} />,
       ],
       ['Fee', packet.fee.toFixed(5)],
       ['Temperature', <FormattedTemperature value={packet.temperature} />],
@@ -90,7 +80,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'Backlight Time',
         <FormattedBacklightTime time={packet.backlightTime} />,
-        <SetupBacklightTimeCommand type={type} />,
+        <SetupBacklightTimeCommand type={type} value={packet.backlightTime} />,
       ],
     ];
   } else if (packet instanceof USBMeterPacket) {
@@ -102,22 +92,12 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'A·h',
         <FormattedUnit value={packet.mAh} unit='A·h' />,
-        <Command
-          hidden={packet.mAh === 0}
-          onClick={CommandSet.resetAh.bind(null, type)}
-        >
-          Reset
-        </Command>,
+        <Command onClick={CommandSet.resetAh.bind(null, type)}>Reset</Command>,
       ],
       [
         'W·h',
         <FormattedUnit value={packet.mWh} unit='W·h' />,
-        <Command
-          hidden={packet.mWh === 0}
-          onClick={CommandSet.resetWh.bind(null, type)}
-        >
-          Reset
-        </Command>,
+        <Command onClick={CommandSet.resetWh.bind(null, type)}>Reset</Command>,
       ],
       [CO2Name, <FormattedUnit value={getCO2(packet.mWh)} unit='g' />],
       ['USB D-', <FormattedUnit value={packet.dataN} unit='V' />],
@@ -126,10 +106,7 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
       [
         'Duration',
         packet.duration,
-        <Command
-          hidden={packet.duration === '000:00:00'}
-          onClick={CommandSet.resetDuration.bind(null, type)}
-        >
+        <Command onClick={CommandSet.resetDuration.bind(null, type)}>
           Reset
         </Command>,
       ],
@@ -154,16 +131,12 @@ export const PrintReport: React.FC<Props> = ({ packet }) => {
 };
 
 const Command: React.FC<{
-  hidden?: boolean;
   onClick: () => Buffer | undefined;
 }> = (props) => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(sendCommand(props.onClick()));
   };
-  if (props.hidden) {
-    return null;
-  }
   return (
     <Button color='link' size='sm' className={locals.btn} onClick={handleClick}>
       {props.children}
@@ -171,21 +144,28 @@ const Command: React.FC<{
   );
 };
 
-const SetupPriceCommand: React.FC<{ type: number }> = ({ type }) => {
+const SetupPriceCommand: React.FC<{ type: number; value: number }> = ({
+  type,
+  value,
+}) => {
   const onClick = () => {
-    const price = prompt('Setup Price (0 to 999.99)', 0, 0, 1000);
+    const price = prompt('Setup Price (0 to 999.99)', value, 0, 1000);
     if (price === undefined) {
       alert(`input unexpected (0 to 999.99)`);
       return;
     }
+    console.log(price);
     return CommandSet.setPrice(type, _.toFinite(price * 100));
   };
   return <Command onClick={onClick}>Setup</Command>;
 };
 
-const SetupBacklightTimeCommand: React.FC<{ type: number }> = ({ type }) => {
+const SetupBacklightTimeCommand: React.FC<{ type: number; value: number }> = ({
+  type,
+  value,
+}) => {
   const onClick = () => {
-    const time = prompt('Setup Backlight Time (0 to 60)', 0, 0, 60.01);
+    const time = prompt('Setup Backlight Time (0 to 60)', value, 0, 60.01);
     if (time === undefined) {
       alert(`input unexpected (0 to 60)`);
       return;
@@ -222,7 +202,7 @@ function prompt(
   maxValue: number,
 ) {
   const returns = globalThis.prompt(message, String(defaultValue));
-  const price = Number.parseInt(returns ?? '-1', 10);
+  const price = Number.parseFloat(returns ?? '-1');
   if (!_.inRange(price, minValue, maxValue)) {
     return;
   }
