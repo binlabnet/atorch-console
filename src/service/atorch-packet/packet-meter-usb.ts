@@ -5,7 +5,7 @@ import { readDuration, readUInt24BE } from './utils';
 const type = 0x03;
 
 export class USBMeterPacket {
-  public static readonly type = type;
+  public readonly type = type;
 
   public readonly mVoltage: number;
   public readonly mAmpere: number;

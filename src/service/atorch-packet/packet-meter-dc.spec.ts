@@ -9,6 +9,7 @@ use(chaiBytes);
 describe('DC Meter', () => {
   const entries: Record<string, InstanceType<typeof DCMeterPacket>> = {
     FF55010200011A00003C0004D40000002000006400000000002600590D363C00000000F0: {
+      type: 2,
       mVoltage: 28200,
       mAmpere: 60,
       mWatt: 1692,
@@ -20,6 +21,7 @@ describe('DC Meter', () => {
       backlightTime: 60,
     },
     FF55010200011A0000000004D40000002000006400000000002A00590E343C000000003F: {
+      type: 2,
       mVoltage: 28200,
       mAmpere: 0,
       mWatt: 0,

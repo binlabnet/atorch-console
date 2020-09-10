@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash-es';
 import { HEADER } from './asserts';
 import { MessageType } from './types';
 import { makeChecksum } from './utils';

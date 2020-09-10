@@ -9,10 +9,7 @@ const packetSize: Record<MessageType, number> = {
   [MessageType.Command]: 10,
 };
 
-export function assertPacket(
-  block: Buffer | null,
-  type: MessageType,
-): asserts block is Buffer {
+export function assertPacket(block: Buffer | null, type: MessageType): asserts block is Buffer {
   const length = packetSize[type];
   if (!Buffer.isBuffer(block)) {
     throw new Error('block not is Buffer object');
@@ -27,11 +24,7 @@ export function assertPacket(
   }
 }
 
-export function assertMeterPacket(
-  block: Buffer,
-  type: number,
-  name: string,
-): asserts block is Buffer {
+export function assertMeterPacket(block: Buffer, type: number, name: string): asserts block is Buffer {
   if (block.readUInt8(0x03) !== type) {
     throw new Error(`this is not a ${name} data packet`);
   }

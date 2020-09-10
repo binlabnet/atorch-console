@@ -20,9 +20,7 @@ declare module 'typescript-fsa-redux-thunk' {
 }
 
 const composeEnhancers: typeof compose =
-  process.env.NODE_ENV === 'production'
-    ? compose
-    : Reflect.get(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__') ?? compose;
+  process.env.NODE_ENV === 'production' ? compose : Reflect.get(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__') ?? compose;
 
 export const configureStore = () =>
   createStore(

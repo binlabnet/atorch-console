@@ -5,7 +5,7 @@ import { readDuration, readUInt24BE } from './utils';
 const type = 0x02;
 
 export class DCMeterPacket {
-  public static readonly type = type;
+  public readonly type = type;
 
   public readonly mVoltage: number;
   public readonly mAmpere: number;

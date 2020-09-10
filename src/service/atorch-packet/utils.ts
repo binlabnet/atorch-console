@@ -23,11 +23,7 @@ export function readPacket(block: Buffer) {
 }
 
 export function isMeterPacket(packet: PacketType): packet is MeterPacketType {
-  return (
-    packet instanceof ACMeterPacket ||
-    packet instanceof DCMeterPacket ||
-    packet instanceof USBMeterPacket
-  );
+  return packet instanceof ACMeterPacket || packet instanceof DCMeterPacket || packet instanceof USBMeterPacket;
 }
 
 export function readUInt24BE(block: Buffer, offset: number) {

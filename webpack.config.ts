@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 
 import HTMLPlugin from 'html-webpack-plugin';
+import HTMLPartialPlugin from 'html-webpack-partials-plugin';
 import CSSPlugin from 'mini-css-extract-plugin';
 import { loader as TypedCSSLoader } from '@nice-labs/typed-css-modules';
 
@@ -51,6 +52,11 @@ const configuration: webpack.Configuration = {
       favicon: require.resolve('./assets/ammeter.png'),
     }),
     new CSSPlugin({ filename: '[name].css' }),
+    new HTMLPartialPlugin({
+      path: require.resolve('./assets/analytics.html'),
+      location: 'head',
+      options: { id: 'UA-168944052-1' },
+    }),
   ],
   stats: 'minimal',
 };

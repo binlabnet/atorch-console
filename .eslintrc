@@ -9,12 +9,7 @@
     }
   },
   "plugins": ["@typescript-eslint", "react"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "prettier/@typescript-eslint"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier/@typescript-eslint"],
   "rules": {
     "react/prop-types": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

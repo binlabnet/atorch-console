@@ -9,6 +9,7 @@ use(chaiBytes);
 describe('USB Meter', () => {
   const entries: Record<string, InstanceType<typeof USBMeterPacket>> = {
     FF5501030001F3000000000638000003110007000A000000122E333C000000000000004E: {
+      type: 3,
       mVoltage: 4990,
       mAmpere: 0,
       mWatt: 0,
@@ -21,6 +22,7 @@ describe('USB Meter', () => {
       backlightTime: 60,
     },
     FF5501030001FB000000003CC70000554E00070007000000472F243C00000000000000CE: {
+      type: 3,
       mVoltage: 5070,
       mAmpere: 0,
       mWatt: 0,
@@ -33,6 +35,7 @@ describe('USB Meter', () => {
       backlightTime: 60,
     },
     FF5501030001CD00007F003CC80000554E0009000A00000047300D3C000000000000008F: {
+      type: 3,
       mVoltage: 4610,
       mAmpere: 1270,
       mWatt: 5855,
@@ -45,6 +48,7 @@ describe('USB Meter', () => {
       backlightTime: 60,
     },
     FF5501030001FB000001006C3F00006C4400070006001A00471C1A3C0000000000000078: {
+      type: 3,
       mVoltage: 5070,
       mAmpere: 10,
       mWatt: 51,

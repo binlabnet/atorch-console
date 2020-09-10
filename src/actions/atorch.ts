@@ -1,76 +1,36 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { asyncFactory } from 'typescript-fsa-redux-thunk';
 import { AtorchService } from '../service/atorch-service';
-import { gtag } from '../tracker';
+import { PacketType } from '../service/atorch-packet';
 
 const create = actionCreatorFactory('ATORCH');
 const createAsync = asyncFactory(create);
 
-export const requestDevice = createAsync('REQUEST_DEVICE', async () => {
-  try {
-    gtag('event', 'request-device');
-    return await AtorchService.requestDevice();
-  } catch (err) {
-    gtag('event', 'exception', {
-      description: err,
-      fatal: false,
-    });
-    throw err;
-  }
+export const setConnected = create<boolean>('SET_CONNECTED');
+export const updatePacket = create<PacketType>('UPDATE_PACKET');
+
+export const connect = createAsync('CONNECT', async (params, dispatch) => {
+  const device = await AtorchService.requestDevice();
+  dispatch(setConnected(true));
+  device.on('disconnected', () => {
+    dispatch(setConnected(false));
+  });
+  device.on('packet', (packet) => {
+    dispatch(updatePacket(packet));
+  });
+  await device.connect();
+  return device;
 });
 
-export const connect = createAsync(
-  'CONNECT',
-  async (params, dispatch, getState) => {
-    const { atorch } = getState();
-    try {
-      gtag('event', 'connect');
-      return await atorch?.connect();
-    } catch (err) {
-      gtag('event', 'exception', {
-        description: err,
-        fatal: false,
-      });
-      throw err;
-    }
-  },
-);
+export const disconnect = createAsync('DISCONNECT', async (params, dispatch, getState) => {
+  const { atorch } = getState();
+  return atorch?.disconnect();
+});
 
-export const disconnect = createAsync(
-  'DISCONNECT',
-  async (params, dispatch, getState) => {
-    const { atorch } = getState();
-    try {
-      gtag('event', 'disconnect');
-      return await atorch?.disconnect();
-    } catch (err) {
-      gtag('event', 'exception', {
-        description: err,
-        fatal: false,
-      });
-      throw err;
-    }
-  },
-);
-
-export const sendCommand = createAsync(
-  'SEND_COMMAND',
-  async (block: Buffer | undefined, dispatch, getState) => {
-    if (block === undefined) {
-      return;
-    }
-    const { atorch } = getState();
-    try {
-      gtag('event', 'send-command', {
-        block: block.toString('hex'),
-      });
-      return await atorch?.sendCommand(block);
-    } catch (err) {
-      gtag('event', 'exception', {
-        description: err,
-        fatal: false,
-      });
-      throw err;
-    }
-  },
-);
+export const sendCommand = createAsync('SEND_COMMAND', async (block: Buffer | undefined, dispatch, getState) => {
+  if (block === undefined) {
+    return;
+  }
+  const { atorch } = getState();
+  return atorch?.sendCommand(block);
+});

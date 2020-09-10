@@ -1,23 +1,18 @@
 import { EventEmitter } from 'events';
-import {
-  readPacket,
-  PacketType,
-  HEADER,
-  assertPacket,
-  MessageType,
-} from './atorch-packet';
+import { readPacket, PacketType, HEADER, assertPacket, MessageType } from './atorch-packet';
 
 const UUID_SERVICE = '0000ffe0-0000-1000-8000-00805f9b34fb';
 const UUID_CHARACTERISTIC = '0000ffe1-0000-1000-8000-00805f9b34fb';
 
-const EVENT_CONNECTED = 'connected';
-const EVENT_WRONG = 'wrong';
+const DISCONNECTED = 'gattserverdisconnected';
+const VALUE_CHANGED = 'characteristicvaluechanged';
+
+const EVENT_FAILED = 'failed';
 const EVENT_PACKET = 'packet';
 
 interface Events {
-  availability(available: boolean): void;
-  connected(connected: boolean): void;
-  wrong(packet: Buffer): void;
+  disconnected(disconnected: boolean): void;
+  failed(packet: Buffer): void;
   packet(packet: PacketType): void;
 }
 
@@ -32,61 +27,40 @@ export class AtorchService {
   private blocks: Buffer[] = [];
   private events = new EventEmitter();
   private device: BluetoothDevice;
-  private characteristic: BluetoothRemoteGATTCharacteristic | undefined;
-  private keepalive = true;
 
   private constructor(device: BluetoothDevice) {
     this.device = device;
-    device.addEventListener('gattserverdisconnected', () => {
-      if (!this.keepalive) {
-        return;
-      }
-      this.events.emit(EVENT_CONNECTED, false);
-      this.reconnect();
+    device.addEventListener(DISCONNECTED, () => {
+      this.events.emit('disconnected', false);
     });
   }
 
   public async connect() {
-    const server = await this.device.gatt?.connect();
-    const service = await server?.getPrimaryService(UUID_SERVICE);
-
-    const characteristic = await service?.getCharacteristic(
-      UUID_CHARACTERISTIC,
-    );
-    characteristic?.addEventListener(
-      'characteristicvaluechanged',
-      this.handleValueChanged,
-    );
+    const characteristic = await this.getCharacteristic();
+    characteristic?.addEventListener(VALUE_CHANGED, this.handleValueChanged);
     await characteristic?.startNotifications();
-
-    this.characteristic = characteristic;
-
-    this.events.emit(EVENT_CONNECTED, true);
-  }
-
-  public async reconnect() {
-    const isDisconnected = () => !(this.device.gatt?.connected ?? false);
-    while (this.keepalive && isDisconnected()) {
-      console.log('retry reconnecting');
-      await this.connect();
-    }
   }
 
   public async disconnect() {
-    this.keepalive = false;
     try {
-      await this.characteristic?.stopNotifications();
       this.device.gatt?.disconnect();
     } catch {
       // ignore
     }
-    this.events.emit(EVENT_CONNECTED, false);
+    this.events.removeAllListeners();
   }
 
   public async sendCommand(block: Buffer) {
     assertPacket(block, MessageType.Command);
-    return this.characteristic?.writeValue(block);
+    const characteristic = await this.getCharacteristic();
+    await characteristic?.writeValue(block);
   }
+
+  private getCharacteristic = async () => {
+    const server = await this.device.gatt?.connect();
+    const service = await server?.getPrimaryService(UUID_SERVICE);
+    return service?.getCharacteristic(UUID_CHARACTERISTIC);
+  };
 
   public on<K extends keyof Events>(event: K, listener: Events[K]): () => void;
   public on(event: string, listener: (...args: unknown[]) => void) {
@@ -115,7 +89,7 @@ export class AtorchService {
       const packet = readPacket(block);
       this.events.emit(EVENT_PACKET, packet);
     } catch {
-      this.events.emit(EVENT_WRONG, block);
+      this.events.emit(EVENT_FAILED, block);
     }
   }
 }
