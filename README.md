@@ -2,9 +2,13 @@
 
 ![Publish](https://github.com/NiceLabs/atorch-console/workflows/Publish/badge.svg)
 
-> The console based Web Bluetooth.
->
-> Note: Atorch Chinese name is "炬为" (Pinyin: Jù wèi)
+The console based Web Bluetooth.
+
+Note: Atorch Chinese name is
+<ruby>
+炬 <rp>(</rp><rt>Jù</rt><rp>)</rp>
+为 <rp>(</rp><rt>wèi</rt><rp>)</rp>
+</ruby>
 
 ## Supported Meter
 
