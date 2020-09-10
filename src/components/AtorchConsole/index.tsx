@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Button, Row, Container } from 'reactstrap';
-
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Container, Row } from 'reactstrap';
+import { connect } from '../../actions/atorch';
 import locals from './index.scss';
-
-import { useWatchReport, useConnected } from '../../hooks/atorch';
-import { requestDevice, connect, disconnect } from '../../actions/atorch';
-import { MeterPacketType } from '../../service/atorch-packet';
 import { PrintReport } from './PrintReport';
 
 export const AtorchConsole: React.FC = () => {
   const dispatch = useDispatch();
-  const connected = useConnected();
-  const [packet, setPacket] = useState<MeterPacketType>();
-  useWatchReport(setPacket);
-  const handleConnectDevice = async () => {
-    if (connected) {
-      await dispatch(disconnect());
-    } else {
-      await dispatch(requestDevice());
-      await dispatch(connect());
-    }
-  };
+  const connected = useSelector((state) => state.report.connected);
+  const latest = useSelector((state) => state.report.latest);
+  const onConnect = () => dispatch(connect());
   return (
     <Container className={locals.container}>
       <Row className='ml-2 justify-content-center'>
-        <Button outline onClick={handleConnectDevice}>
+        <Button outline onClick={onConnect}>
           {connected ? 'Disconnect' : 'Connect'}
         </Button>
       </Row>
-      <PrintReport packet={packet} />
+      <PrintReport packet={latest} />
     </Container>
   );
 };
