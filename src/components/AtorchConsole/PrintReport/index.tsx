@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import _ from 'lodash';
+import _ from 'lodash-es';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Row } from 'reactstrap';

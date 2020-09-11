@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import _ from 'lodash';
+import _ from 'lodash-es';
 import React from 'react';
 import { Table } from 'reactstrap';
 import locals from './index.scss';
